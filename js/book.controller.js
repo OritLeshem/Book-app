@@ -4,6 +4,8 @@ var gSelectedBook = null
 console.log("js controller")
 function onInit() {
   renderFilterByQueryStringParams()
+  generateQueryStringParams()
+
   renderChosenView()
 
 
@@ -122,6 +124,7 @@ function onReadBook(bookId) {
   var book = getBookById(bookId)
   console.log(book)
   gSelectedBook = book
+  generateQueryStringParams()
   console.log('gSelectedBook', gSelectedBook)
 
 
@@ -138,8 +141,7 @@ function onReadBook(bookId) {
 function onCloseModal() {
   gSelectedBook = null
   document.querySelector('.new-modal').classList.remove('open')
-  // console.log(gSelectedBook)
-  // generateQueryStringParams(gFilterBy, gSelectedBook)
+  generateQueryStringParams()
 }
 function onRating(num) {
   var elRating = document.querySelector('.rating-num')
@@ -176,11 +178,14 @@ function generateQueryStringParams() {
   //   window.history.pushState({ path: newUrl }, '', newUrl)
   // }
   // if (gSelectedBook === null) {
+  var openBook
+  if (gSelectedBook !== null) openBook = gSelectedBook.id
+  else openBook = null
   var currlang = getLang()
   var filterBy = getBookfilter()
   console.log(currlang)
   // const queryStringParams = `?&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}&modal=${gSelectedBook = null}`
-  const queryStringParams = `?&lang=${currlang}&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}`
+  const queryStringParams = `?&lang=${currlang}&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}&selected=${openBook}`
   const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
   window.history.pushState({ path: newUrl }, '', newUrl)
   // }
@@ -194,17 +199,20 @@ function renderFilterByQueryStringParams() {
     maxPrice: +queryStringParams.get('maxPrice') || 150,
   }
   var currlang = queryStringParams.get('lang') || 'en'
+  var openBook = queryStringParams.get('selected')
   // onReadBook(queryStringParams.get('modal'))
 
   if (!filterBy.minRate && !filterBy.maxPrice) return
 
   document.querySelector('.filter-price-range').value = filterBy.maxPrice
+  document.querySelector('.what-the-price').innerText = filterBy.maxPrice
   document.querySelector('.filter-rate-range').value = filterBy.minRate
+  document.querySelector('.what-the-rate').innerText = filterBy.minRate
   document.querySelector('.sort-by-lang').value = currlang
-
   onSetLang(currlang)
-
   setBookFilter(filterBy)
+  onReadBook(openBook)
+
 }
 function onChangePage(page) {
   var res = changePage(page)

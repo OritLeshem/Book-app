@@ -180,7 +180,6 @@ function setBookFilter(filterBy = {}) {
   if (filterBy.search !== undefined) gFilterBy.search = filterBy.search
   return gFilterBy
 
-  console.log('gFilterBy', gFilterBy)
 }
 
 function getBookfilter() {
