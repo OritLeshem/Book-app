@@ -183,7 +183,9 @@ function setBookFilter(filterBy = {}) {
   console.log('gFilterBy', gFilterBy)
 }
 
-
+function getBookfilter() {
+  return gFilterBy
+}
 var isDescPrice = -1
 var isDescName = -1
 function sort(sortKey) {

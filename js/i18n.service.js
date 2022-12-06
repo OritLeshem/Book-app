@@ -15,7 +15,7 @@ var gTrans = {
   },
   descending: {
     en: 'Descending',
-    he: 'מיון הפוך',
+    he: 'הפוך',
   },
   'min-rating': {
     en: 'Min Rating',
@@ -64,20 +64,30 @@ var gTrans = {
   hebrew: {
     en: 'Hebrew',
     he: 'עברית'
+  },
+  close: {
+    en: 'Close',
+    he: 'סגור'
+  },
+  id: {
+    en: 'Id',
+    he: 'תז'
   }
 }
 
 function setLang(lang) {
   gCurrLang = lang
 }
+
+function getLang() {
+  return gCurrLang
+}
 function doTrans() {
   var els = document.querySelectorAll('[data-trans]')
-  console.log(els)
   els.forEach(el => {
     const transKey = el.dataset.trans
     const translation = getTrans(transKey)
     el.innerText = translation
-    console.log(el.dataset.trans)
     if (el.placeholder) el.placeholder = translation
   });
 }

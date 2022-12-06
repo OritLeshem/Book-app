@@ -50,8 +50,10 @@
             <!--  Descending--------------------------------------------->
             <li class="nav-item">
               <a class="nav-link">
-                <label data-trans="descending" for="sort-desc"></label>
-                Descending
+                <label data-trans="descending" for="sort-desc">
+                  Descending</label
+                >
+
                 <input
                   class="sort-desc"
                   type="checkbox"
@@ -111,7 +113,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link"
-                ><select class="sort-by" onchange="onSetLang(this.value)">
+                ><select class="sort-by-lang" onchange="onSetLang(this.value)">
                   <option data-trans="english" value="en">English</option>
                   <option data-trans="hebrew" value="he">עברית</option>
                 </select></a
@@ -131,7 +133,7 @@
         class="container-fluid d-flex p-3 justify-content-between align-item-center add-and-filters"
       >
         <!-- paging--------------------------------------------->
-        <div>
+        <div style="direction: ltr">
           <button
             style="opacity: 0.3"
             disabled
@@ -204,18 +206,24 @@
     <!-- add modal--------------------------------------------->
 
     <div class="new-modal">
-      <h3>book</h3>
+      <h3 data-trans="name">book</h3>
       <h4><span>56</span></h4>
       <!-- <h5>Book Description</h5> -->
       <img src="" />
       <p></p>
-      <section class="rating">
-        <span>rating</span>
+      <section style="direction: ltr" class="rating">
+        <span data-trans="rating">rating</span>
         <button class="decrease" onclick="onRating(-1)">-</button
         ><span class="rating-num">0</span
         ><button class="increase" onclick="onRating(1)">+</button>
       </section>
-      <button class="btn-close-details" onclick="onCloseModal()">Close</button>
+      <button
+        data-trans="close"
+        class="btn-close-details"
+        onclick="onCloseModal()"
+      >
+        Close
+      </button>
     </div>
 
     <!-- script--------------------------------------------->

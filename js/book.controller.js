@@ -34,9 +34,9 @@ function renderCards() {
   <div class="card-body">
     <h5 class="card-title">${book.name}</h5>
     <h5 class="card-title">${book.price}</h5>
-    <button onclick="onReadBook('${book.id}')">Read</button>
-          <button onclick="onUpdateBook('${book.id}')">Update</button>
-          <button class="btn-remove" onclick="onRemoveBook('${book.id}')">Delete</button>
+    <button data-trans="read" onclick="onReadBook('${book.id}')">Read</button>
+          <button data-trans="update" onclick="onUpdateBook('${book.id}')">Update</button>
+          <button data-trans="delete" class="btn-remove" onclick="onRemoveBook('${book.id}')">Delete</button>
   </div>
 </div>`
   )
@@ -58,14 +58,13 @@ function renderCards() {
 
 function renderBooks() {
   const books = getBooks()
-  console.log(books)
   if (!books) return
 
 
   var strHTMLs = `<table class="table table-hover m-3  ">
   <thead>
     <tr>
-      <th scope="col">ID</td>
+      <th scope="col" data-trans="id">ID</td>
       <th class="text-align-center" scope="col"  data-trans="name" onclick="onSort('name')">NAME</td>
       <th scope="col"  data-trans="price" onclick="onSort('price')">PRICE</td>
       <th scope="col" data-trans="rating" >RATING</td>
@@ -166,10 +165,10 @@ function onSetFilterBy(filterBy) {
   if (filterBy.maxPrice) elFilterPrice.innerText = filterBy.maxPrice
   filterBy = setBookFilter(filterBy)
   renderChosenView()
-  generateQueryStringParams(filterBy, gSelectedBook)
+  generateQueryStringParams()
 }
 
-function generateQueryStringParams(filterBy) {
+function generateQueryStringParams() {
   // if (gSelectedBook && gSelectedBook.id) {
   //   console.log(gSelectedBook.id)
   //   const queryStringParams = `?&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}&modal=${gSelectedBook.id}`
@@ -177,9 +176,11 @@ function generateQueryStringParams(filterBy) {
   //   window.history.pushState({ path: newUrl }, '', newUrl)
   // }
   // if (gSelectedBook === null) {
-  console.log(gSelectedBook)
+  var currlang = getLang()
+  var filterBy = getBookfilter()
+  console.log(currlang)
   // const queryStringParams = `?&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}&modal=${gSelectedBook = null}`
-  const queryStringParams = `?&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}`
+  const queryStringParams = `?&lang=${currlang}&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}`
   const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
   window.history.pushState({ path: newUrl }, '', newUrl)
   // }
@@ -192,12 +193,17 @@ function renderFilterByQueryStringParams() {
     minRate: +queryStringParams.get('minRate') || 0,
     maxPrice: +queryStringParams.get('maxPrice') || 150,
   }
+  var currlang = queryStringParams.get('lang') || 'en'
   // onReadBook(queryStringParams.get('modal'))
 
   if (!filterBy.minRate && !filterBy.maxPrice) return
 
   document.querySelector('.filter-price-range').value = filterBy.maxPrice
   document.querySelector('.filter-rate-range').value = filterBy.minRate
+  document.querySelector('.sort-by-lang').value = currlang
+
+  onSetLang(currlang)
+
   setBookFilter(filterBy)
 }
 function onChangePage(page) {
@@ -246,6 +252,7 @@ function onSortForCards() {
 
 function onSetLang(lang) {
   setLang(lang)
+  generateQueryStringParams()
   console.log(lang)
   if (lang === 'he') document.body.classList.add('rtl')
   else document.body.classList.remove('rtl')
