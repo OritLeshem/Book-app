@@ -5,12 +5,9 @@ console.log("js controller")
 function onInit() {
   renderFilterByQueryStringParams()
   generateQueryStringParams()
-
   renderChosenView()
-
-
-
 }
+
 function renderChosenView() {
   if (gView === 1) {
     renderBooks()
@@ -19,16 +16,16 @@ function renderChosenView() {
   if (gView === -1) {
     renderCards()
     document.querySelector('.view-table').innerHTML = ""
-
   }
   doTrans()
 }
+
 function onView(num) {
   gView = num
   onInit()
 }
-function renderCards() {
 
+function renderCards() {
   var books = getBooks()
   var strHtmls = books.map(book => `
   <div class="card" style="width: 18rem;">
@@ -45,24 +42,9 @@ function renderCards() {
   document.querySelector('.cards-container').innerHTML = strHtmls.join('')
 }
 
-
-{/* <article class="car-preview">
-          <button class="btn-remove" onclick="onRemoveBook('${book.id}')">X</button>
-          <h5>${book.name}</h5>
-          <h6> $ ${book.price}</h6>
-          <img width = '80px' src='${book.img}'/>
-          <div class= "btns-cards">
-          <button onclick="onReadBook('${book.id}')">Read</button>
-          <button onclick="onUpdateBook('${book.id}')">Update</button>
-          </div>
-      </article>  */}
-
-
 function renderBooks() {
   const books = getBooks()
   if (!books) return
-
-
   var strHTMLs = `<table class="table table-hover m-3  ">
   <thead>
     <tr>
@@ -80,31 +62,22 @@ function renderBooks() {
       <td class="col-4">${book.price}</td>
       <td>${book.rating}</td>
       <td><button class= "btn btn-outline-success mx-1" data-trans="read" onclick="onReadBook('${book.id}')">Read</button></td>
-
       <td><button class= "btn btn-outline-success mx-1" data-trans="update" onclick="onUpdateBook('${book.id}')">Update</button></td>
       <td><button class= "btn btn-outline-success mx-1 btn-remove" data-trans="delete" onclick="onRemoveBook('${book.id}')">Delete</button></td>
       </td>
-      
       </tr>`
   }).join('')
   strHTMLs += `</tbody></table>`
   document.querySelector('.view-table').innerHTML = strHTMLs
 }
 
-
-
-
-
 function onRemoveBook(bookId) {
-
-  console.log("delete book controller")
   removeBook(bookId)
   renderChosenView()
   renderChosenView()
 }
-function onAddBook(e) {
-  console.log("add book controler")
-  e.preventDefault()
+
+function onAddBook() {
   var elName = document.querySelector('input[name="name"]')
   var bookName = elName.value
   var elPrice = document.querySelector('input[name="price"]')
@@ -126,23 +99,21 @@ function onReadBook(bookId) {
   gSelectedBook = book
   generateQueryStringParams()
   console.log('gSelectedBook', gSelectedBook)
-
-
   var elModal = document.querySelector('.new-modal')
   elModal.querySelector('h3').innerText = book.name
   elModal.querySelector('h4 span').innerText = book.price
   elModal.querySelector('img').src = book.img
   elModal.querySelector('p').innerText = book.description
   document.querySelector('.rating-num').innerText = book.rating
-
   elModal.classList.add('open')
-  // generateQueryStringParams(gFilterBy, gSelectedBook)
 }
+
 function onCloseModal() {
   gSelectedBook = null
   document.querySelector('.new-modal').classList.remove('open')
   generateQueryStringParams()
 }
+
 function onRating(num) {
   var elRating = document.querySelector('.rating-num')
   elRating.innerText = applyRating(num)
@@ -159,6 +130,7 @@ function onUpdateBook(bookId) {
     renderChosenView()
   }
 }
+
 function onSetFilterBy(filterBy) {
   // e.preventDefault()
   var elFilterPrice = document.querySelector('.what-the-price')
@@ -171,24 +143,15 @@ function onSetFilterBy(filterBy) {
 }
 
 function generateQueryStringParams() {
-  // if (gSelectedBook && gSelectedBook.id) {
-  //   console.log(gSelectedBook.id)
-  //   const queryStringParams = `?&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}&modal=${gSelectedBook.id}`
-  //   const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
-  //   window.history.pushState({ path: newUrl }, '', newUrl)
-  // }
-  // if (gSelectedBook === null) {
   var openBook
-  if (gSelectedBook !== null) openBook = gSelectedBook.id
-  else openBook = null
+  if (gSelectedBook === null || undefined) openBook = null
+  else openBook = gSelectedBook.id
   var currlang = getLang()
   var filterBy = getBookfilter()
   console.log(currlang)
-  // const queryStringParams = `?&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}&modal=${gSelectedBook = null}`
   const queryStringParams = `?&lang=${currlang}&minRate=${filterBy.minRate}&maxPrice=${filterBy.maxPrice}&selected=${openBook}`
   const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
   window.history.pushState({ path: newUrl }, '', newUrl)
-  // }
 }
 
 function renderFilterByQueryStringParams() {
@@ -200,7 +163,6 @@ function renderFilterByQueryStringParams() {
   }
   var currlang = queryStringParams.get('lang') || 'en'
   var openBook = queryStringParams.get('selected')
-  // onReadBook(queryStringParams.get('modal'))
 
   if (!filterBy.minRate && !filterBy.maxPrice) return
 
@@ -211,9 +173,9 @@ function renderFilterByQueryStringParams() {
   document.querySelector('.sort-by-lang').value = currlang
   onSetLang(currlang)
   setBookFilter(filterBy)
-  onReadBook(openBook)
-
+  if (openBook) onReadBook(openBook)
 }
+
 function onChangePage(page) {
   var res = changePage(page)
   var Idx = res.gPageIdx
@@ -227,7 +189,6 @@ function onChangePage(page) {
     elPrev.style.opacity = '0.3'
   }
   if ((Idx !== 0)) {
-
     elPrev.disabled = false
     elPrev.style.opacity = '1'
   }
@@ -264,7 +225,6 @@ function onSetLang(lang) {
   console.log(lang)
   if (lang === 'he') document.body.classList.add('rtl')
   else document.body.classList.remove('rtl')
-
   doTrans()
   renderChosenView()
 }

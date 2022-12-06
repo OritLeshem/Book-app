@@ -11,7 +11,9 @@ nav {
 h2 {
   color: green;
 }
-
+.mark-input {
+  border: 2px solid red;
+}
 .add-and-filters {
   background-color: rgb(151, 231, 151, 0.5);
 }
