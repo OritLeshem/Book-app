@@ -19,6 +19,7 @@ function renderChosenView() {
     document.querySelector('.view-table').innerHTML = ""
 
   }
+  doTrans()
 }
 function onView(num) {
   gView = num
@@ -68,7 +69,7 @@ function renderBooks() {
       <th class="text-align-center" scope="col"  data-trans="name" onclick="onSort('name')">NAME</td>
       <th scope="col"  data-trans="price" onclick="onSort('price')">PRICE</td>
       <th scope="col" data-trans="rating" >RATING</td>
-      <th colspan="3" class= "text-center" data-trans="action">ACTION</td>
+      <th colspan="3" class= "text-center" data-trans="action" >ACTION</td>
     </tr>
   </thead> <tbody>`
   strHTMLs += books.map(book => {
@@ -77,10 +78,10 @@ function renderBooks() {
       <td class="text-align-left col-4" >${book.name}</td>
       <td class="col-4">${book.price}</td>
       <td>${book.rating}</td>
-      <td><button class= "btn btn-outline-success mx-1" onclick="onReadBook('${book.id}')">Read</button></td>
+      <td><button class= "btn btn-outline-success mx-1" data-trans="read" onclick="onReadBook('${book.id}')">Read</button></td>
 
-      <td><button class= "btn btn-outline-success mx-1" onclick="onUpdateBook('${book.id}')">Update</button></td>
-      <td><button class= "btn btn-outline-success mx-1 btn-remove" onclick="onRemoveBook('${book.id}')">Delete</button></td>
+      <td><button class= "btn btn-outline-success mx-1" data-trans="update" onclick="onUpdateBook('${book.id}')">Update</button></td>
+      <td><button class= "btn btn-outline-success mx-1 btn-remove" data-trans="delete" onclick="onRemoveBook('${book.id}')">Delete</button></td>
       </td>
       
       </tr>`
@@ -238,10 +239,17 @@ function onSortForCards() {
   const isDesc = document.querySelector('.sort-desc').checked
   const sortBy = {}
   console.log("sortby", sortBy)
-
   sortBy[prop] = (isDesc) ? -1 : 1
-
   SortForCards(sortBy)
   renderChosenView()
+}
 
+function onSetLang(lang) {
+  setLang(lang)
+  console.log(lang)
+  if (lang === 'he') document.body.classList.add('rtl')
+  else document.body.classList.remove('rtl')
+
+  doTrans()
+  renderChosenView()
 }

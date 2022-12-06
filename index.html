@@ -76,7 +76,7 @@
           /></span>
 
           <span class="navbar-text mx-3">
-            <span data-trans="max-pricing">Max Peicing:</span>
+            <span data-trans="max-price">Max Peicing:</span>
             <span class="what-the-price">150</span>
 
             <input
@@ -98,7 +98,11 @@
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn btn-outline-success" type="submit">
+            <button
+              data-trans="search"
+              class="btn btn-outline-success"
+              type="submit"
+            >
               Search
             </button>
           </form>
@@ -108,8 +112,8 @@
             <li class="nav-item">
               <a class="nav-link"
                 ><select class="sort-by" onchange="onSetLang(this.value)">
-                  <option data-trans="english" value="">English</option>
-                  <option data-trans="hebrew" value="name">עברית</option>
+                  <option data-trans="english" value="en">English</option>
+                  <option data-trans="hebrew" value="he">עברית</option>
                 </select></a
               >
             </li>
@@ -220,11 +224,10 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-
-    <script src="./js/book.controller.js"></script>
     <script src="./js/services/storage.service.js"></script>
-    <script src="./js/services/book.service.js"></script>
-
     <script src="./js/services/util.service.js"></script>
+    <script src="./js//i18n.service.js"></script>
+    <script src="./js/services/book.service.js"></script>
+    <script src="./js/book.controller.js"></script>
   </body>
 </html>
