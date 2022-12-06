@@ -12,7 +12,8 @@
     />
 
     <link rel="stylesheet" href="./css/style.css" />
-    <title>Books</title>
+    <link rel="icon" type="image/x-icon" href="/img/icons8-green-book-96.png" />
+    <title>BooX</title>
   </head>
 
   <body onload="onInit()">
@@ -40,15 +41,16 @@
             <li class="nav-item">
               <a class="nav-link"
                 ><select class="sort-by" onchange="onSortForCards()">
-                  <option value="">ALL</option>
-                  <option value="name">NAME</option>
-                  <option value="price">PRICE</option>
+                  <option data-trans="filter-all" value="">ALL</option>
+                  <option data-trans="filter-name" value="name">NAME</option>
+                  <option data-trans="filter-price" value="price">PRICE</option>
                 </select></a
               >
             </li>
             <!--  Descending--------------------------------------------->
             <li class="nav-item">
               <a class="nav-link">
+                <label data-trans="descending" for="sort-desc"></label>
                 Descending
                 <input
                   class="sort-desc"
@@ -60,7 +62,8 @@
           </ul>
 
           <span class="navbar-text mx-3">
-            min rating: <span class="what-the-rate">0</span>
+            <span data-trans="min-rating">Min Rating:</span>
+            <span class="what-the-rate">0</span>
 
             <input
               onchange="this.title=this.value;onSetFilterBy({minRate: this.value})"
@@ -73,7 +76,8 @@
           /></span>
 
           <span class="navbar-text mx-3">
-            max price: <span class="what-the-price">150</span>
+            <span data-trans="max-pricing">Max Peicing:</span>
+            <span class="what-the-price">150</span>
 
             <input
               onchange="this.title=this.value;onSetFilterBy({maxPrice: this.value})"
@@ -87,6 +91,7 @@
           <!--  search--------------------------------------------->
           <form class="d-flex mx-3" role="search">
             <input
+              data-trans="search"
               oninput="onSetFilterBy({search: this.value})"
               class="form-control me-2"
               type="search"
@@ -131,8 +136,14 @@
 
         <div class="add">
           <form onsubmit="onAddBook(event)">
-            <input type="text" placeholder="name" name="name" />
             <input
+              data-trans="name"
+              type="text"
+              placeholder="name"
+              name="name"
+            />
+            <input
+              data-trans="price"
               type="number"
               placeholder="price"
               name="price"
@@ -177,7 +188,6 @@
     <!-- add modal--------------------------------------------->
 
     <div class="new-modal">
-      modal
       <h3>book</h3>
       <h4><span>56</span></h4>
       <!-- <h5>Book Description</h5> -->

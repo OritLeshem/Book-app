@@ -32,6 +32,7 @@ function renderCards() {
   <img src='${book.img}' class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">${book.name}</h5>
+    <h5 class="card-title">${book.price}</h5>
     <button onclick="onReadBook('${book.id}')">Read</button>
           <button onclick="onUpdateBook('${book.id}')">Update</button>
           <button class="btn-remove" onclick="onRemoveBook('${book.id}')">Delete</button>
@@ -64,10 +65,10 @@ function renderBooks() {
   <thead>
     <tr>
       <th scope="col">ID</td>
-      <th class="text-align-center" scope="col" onclick="onSort('name')">NAME</td>
-      <th scope="col" onclick="onSort('price')">PRICE</td>
-      <th scope="col" >RATING</td>
-      <th colspan="3" class= "text-center">ACTION</td>
+      <th class="text-align-center" scope="col"  data-trans="name" onclick="onSort('name')">NAME</td>
+      <th scope="col"  data-trans="price" onclick="onSort('price')">PRICE</td>
+      <th scope="col" data-trans="rating" >RATING</td>
+      <th colspan="3" class= "text-center" data-trans="action">ACTION</td>
     </tr>
   </thead> <tbody>`
   strHTMLs += books.map(book => {
