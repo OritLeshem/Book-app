@@ -1,0 +1,117 @@
+body {
+  overflow-x: hidden;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+nav {
+  background-color: green;
+}
+h2 {
+  color: green;
+}
+
+.add-and-filters {
+  background-color: rgb(151, 231, 151, 0.5);
+}
+.btns-prev-next > img,
+.btns-table-cards > img {
+  width: 30px;
+  margin: auto auto;
+}
+.new-modal {
+  border: 3px solid rgb(177, 249, 224);
+  width: 500px;
+  background-color: #fff;
+  padding: 10px;
+  position: absolute;
+  top: 0px;
+  left: 150%;
+  height: 80vh;
+  min-width: 500px;
+  text-align: center;
+}
+.new-modal.open {
+  left: 60%;
+  transition: left 0.5s;
+}
+.new-modal h3 {
+  color: green;
+  /* text-decoration: underline; */
+  text-transform: capitalize;
+}
+.new-modal h4 span {
+  color: green;
+}
+.new-modal p {
+  width: 400px;
+  margin: 50px auto;
+}
+.new-modal > img {
+  width: 100px;
+}
+.new-modal .rating {
+  font-size: 1.5rem;
+  /* background-color: rgb(177, 249, 224); */
+}
+.new-modal .rating span {
+  margin: 30px;
+}
+.new-modal .rating button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+}
+.btn-close-details {
+  margin: 100px;
+}
+
+/* .cards-container {
+  display: flex;
+  flex-wrap: wrap;
+} */
+.rr {
+  background-color: red;
+}
+.car-preview {
+  background-color: white;
+  color: green;
+  width: 20%;
+  margin: 0.5em;
+  border: 1px solid lightgray;
+  border-radius: 0.2em;
+  text-align: center;
+  padding: 5px;
+}
+.car-preview .btn-remove {
+  float: right;
+}
+
+.car-preview img {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  border: 1px solid green;
+}
+
+.car-preview h5 {
+  font-size: 1.4em;
+  text-transform: capitalize;
+  /* text-decoration: overline; */
+}
+
+.car-preview h6 {
+  color: green;
+  font-size: 1em;
+}
+.car-preview .btns-cards {
+  margin-top: 1rem;
+}
+.car-preview button {
+  background: none;
+  border: 1px solid rgb(246, 237, 237);
+  padding: 0.5rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+}
+thead {
+  background-color: rgb(64, 177, 51);
+}
